@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+// @flow
+import React, { useState } from 'react';
+import Searchbar from './Searchbar';
+import Header from './Header';
+import { GiphyFetch } from '@giphy/js-fetch-api';
+import { Grid } from '@giphy/react-components';
 import './App.css';
 
-function App() {
+const gf = new GiphyFetch('gpy1PK3qjvtwhFwTNAyW98Khtw3oB4sp');
+
+const App = () => {
+  const [query, setQuery] = useState('');
+  const fetchGifs = (offset: number) => gf.search(query, { offset, limit: 20 });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Searchbar query={query} onSearch={setQuery} />
+      <div>
+        <Grid width={window.innerWidth} columns={3} gutter={6} key={query} fetchGifs={fetchGifs}/>
+      </div>
     </div>
   );
 }
