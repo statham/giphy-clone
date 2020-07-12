@@ -6,7 +6,7 @@ import { GiphyFetch } from '@giphy/js-fetch-api';
 import { Grid } from '@giphy/react-components';
 import './App.css';
 
-const gf = new GiphyFetch('gpy1PK3qjvtwhFwTNAyW98Khtw3oB4sp');
+const gf = new GiphyFetch(process.env.REACT_APP_GIPHY_API_KEY || '');
 
 const App = () => {
   const [query, setQuery] = useState('');
