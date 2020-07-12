@@ -5,6 +5,8 @@ import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
+import { connect } from 'react-redux';
+import { searchGifs } from '../actions'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -45,4 +47,12 @@ const Searchbar = ({ query, onSearch }: Props) => {
   )
 }
 
-export default Searchbar;
+const mapStateToProps = state => ({
+  query: state.search
+});
+
+const mapDispatchToProps = dispatch => ({
+  onSearch: query => dispatch(searchGifs(query))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Searchbar);
